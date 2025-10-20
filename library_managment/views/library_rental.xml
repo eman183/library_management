@@ -1,0 +1,61 @@
+<odoo>
+    <data>
+            <record id="view_library_rental_tree" model="ir.ui.view">
+                <field name="model">library.rental</field>
+                <field name="arch" type="xml">
+                    <tree>
+                        <field name="book_id"/>
+                        <field name="borrower_id"/>
+                        <field name="rental_date"/>
+                        <field name="return_date"/>
+                        <field name="state"/>
+                    </tree>
+                </field>
+            </record>
+
+            <record id="view_library_rental_form" model="ir.ui.view">
+                <field name="model">library.rental</field>
+                <field name="arch" type="xml">
+                    <form>
+                        <sheet>
+                            <header>
+                                <field name="state" widget="statusbar" statusbar_visible="draft,rented,returned,lost"/>
+                                <button name="action_confirm_rental"
+                                        type="object"
+                                        string="Confirm Rental"
+                                        class="btn-primary"
+                                        invisible=" state != 'draft'"/>
+
+                                <button name="action_return_rental"
+                                        type="object"
+                                        string="Return Rental"
+                                        class="btn-success"
+                                        invisible=" state != 'rented'"/>
+
+                                <button name="action_mark_as_lost"
+                                        type="object"
+                                        string="Lost"
+                                        class="btn-secondary"
+                                        invisible=" state not in ['draft','rented']"/>
+                            </header>
+                            <group>
+                                <field name="book_id"/>
+                                <field name="borrower_id"/>
+                                <field name="rental_date"/>
+                                <field name="return_date"/>
+                                <field name="state"/>
+                            </group>
+                        </sheet>
+                    </form>
+                </field>
+            </record>
+
+            <record id="action_library_rentals" model="ir.actions.act_window">
+                <field name="name">Rentals</field>
+                <field name="res_model">library.rental</field>
+                <field name="view_mode">tree,form</field>
+            </record>
+            <menuitem id="menu_library_rentals" name="Rentals" parent="menu_library_root_base" action="action_library_rentals"/>
+
+    </data>
+</odoo>

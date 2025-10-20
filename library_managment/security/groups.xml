@@ -1,0 +1,8 @@
+<odoo>
+    <data>
+        <record id="group_library_admin" model="res.groups">
+            <field name="name">Library Adminstator</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+    </data>
+</odoo>
